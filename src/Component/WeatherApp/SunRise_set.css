@@ -1,0 +1,20 @@
+.sunElement{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 10px;
+}
+
+.sunIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background-color:rgba(0, 0, 0, 0.058);
+    border-radius: 12px;
+}
+
+.sunIcon img{
+    width: 60px;
+    height: 60px;
+}
