@@ -1,0 +1,20 @@
+.footer{
+    background-color: #00002971;
+    margin-top: 50px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+.links{
+    display: flex;
+    gap:50px;
+}
+
+@media(max-width: 500px){
+    .footer{
+        margin-top: 2px;
+    }
+}

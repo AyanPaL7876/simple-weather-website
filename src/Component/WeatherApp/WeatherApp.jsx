@@ -1,3 +1,4 @@
+
 import "./WeatherApp.css"
 import searchIcon from "../assets/search.png";
 import humidityIcon from "../assets/humidity.svg";
@@ -10,8 +11,7 @@ import SetIcon from "./SetIcon";
 import SunRise_set from "./SunRise_set";
 
 export default function WeatherApp(){
-    let KEY = "80b8b2535620ffbdaa98d3fb5e9c44de";
-    // console.log(process.env.REACT_APP_WEATHER_API_KEY);
+    const KEY = import.meta.env.VITE_API_KEY;
     
     let [city,setCity] = useState("Kolkata");
     let [info,setInfo] = useState({
@@ -28,7 +28,6 @@ export default function WeatherApp(){
     });
 
     let handelChange = (evt)=>{
-        console.log(`city: ${city} , add: ${evt.target.value}`);
         setCity(evt.target.value);
     }
 
@@ -55,9 +54,8 @@ export default function WeatherApp(){
             sunSet: new Date(result.sys.sunset * 1000).toLocaleTimeString(),
           };
       
-          setInfo(weather); // Update info state with fetched weather data
+          setInfo(weather); 
         } catch (error) {
-            console.log(error);
             isValid();
         }
       };
@@ -85,7 +83,7 @@ export default function WeatherApp(){
   return (
     <div className="cointener">
         <form className="searchBox">
-            <input type="text" className="cityInput" placeholder='Search'onChange={handelChange}/>
+            <input type="text" className="cityInput" id="cityName" placeholder='Search' required onChange={handelChange}/>
             <div className="searchButton" type="submit" value="Submit" onClick={search}>
                 <img src={searchIcon} alt="" />
             </div>
