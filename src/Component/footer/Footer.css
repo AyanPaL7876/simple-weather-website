@@ -1,5 +1,5 @@
 .footer{
-    background-color: #00002971;
+    background-color: #00007971;
     margin-top: 50px;
     width: 100%;
     height: 50px;
@@ -15,6 +15,6 @@
 
 @media(max-width: 500px){
     .footer{
-        margin-top: 2px;
+        margin-top: 4px;
     }
 }
