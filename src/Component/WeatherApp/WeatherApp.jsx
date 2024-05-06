@@ -82,7 +82,9 @@ export default function WeatherApp(){
     
   return (
     <div className="cointener">
-        <form className="searchBox">
+        <form className="searchBox" onSubmit={(e) => {
+            e.preventDefault();
+            search(); }} >
             <input type="text" className="cityInput" id="cityName" placeholder='Search' required onChange={handelChange}/>
             <div className="searchButton" type="submit" value="Submit" onClick={search}>
                 <img src={searchIcon} alt="" />
