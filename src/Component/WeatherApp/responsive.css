@@ -1,0 +1,870 @@
+/* ============================================
+   WEATHER APP - RESPONSIVE CSS
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base Styles */
+.weatherApp {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.weatherApp::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+}
+
+.weatherApp::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(100, 200, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    bottom: -50px;
+    left: -50px;
+    pointer-events: none;
+}
+
+/* ============================================
+   NAVIGATION HEADER
+   ============================================ */
+
+.navHeader {
+    width: 100%;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 10;
+}
+
+.navContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.appTitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.searchForm {
+    display: flex;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 12px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    max-width: 350px;
+    transition: all 0.3s ease;
+}
+
+.searchForm:focus-within {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+}
+
+.searchInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 0;
+}
+
+.searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.searchBtn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.searchBtn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.searchBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.errorMsg {
+    color: #ff6b6b;
+    font-size: 13px;
+    margin-top: 12px;
+    text-align: center;
+    animation: shake 0.4s ease-in-out;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    border-left: 3px solid #ff6b6b;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* ============================================
+   MAIN CONTENT LAYOUT
+   ============================================ */
+
+.mainContent {
+    flex: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    position: relative;
+    z-index: 5;
+}
+
+/* Left Column */
+.leftColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* ============================================
+   PRIMARY CARD (LEFT SIDE)
+   ============================================ */
+
+.primaryCard {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-radius: 30px;
+    padding: 50px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.primaryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    gap: 30px;
+}
+
+.locationHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cityName {
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -1px;
+}
+
+.countryInfo {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.temperatureSection {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.mainTemperature {
+    font-size: 120px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.weatherDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.weatherType {
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.description {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    text-transform: capitalize;
+}
+
+.feelsLike {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    font-style: italic;
+}
+
+.tempRangeBar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tempRangeItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 70px;
+}
+
+.tempLabel {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tempVal {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.rangeVisual {
+    flex: 1;
+    height: 8px;
+    background: linear-gradient(90deg, rgba(100, 200, 255, 0.3) 0%, rgba(255, 107, 107, 0.3) 100%);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* ============================================
+   SUN TIMES CARD (LEFT SIDE)
+   ============================================ */
+
+.sunTimesCard {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    animation: slideUp 0.6s ease-out 0.1s backwards;
+}
+
+.sunTimeItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.sunIcon {
+    font-size: 48px;
+}
+
+.sunInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sunLabel {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 0;
+}
+
+.sunTime {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.sunDivider {
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   DETAILS SECTION (RIGHT SIDE)
+   ============================================ */
+
+.detailsSection {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-height: calc(100vh - 220px);
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.detailsSection::-webkit-scrollbar {
+    width: 6px;
+}
+
+.detailsSection::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.detailsSection::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.detailsSection::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.detailCard {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    animation: slideUp 0.6s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.detailCard:nth-child(1) { animation-delay: 0.1s; }
+.detailCard:nth-child(2) { animation-delay: 0.15s; }
+.detailCard:nth-child(3) { animation-delay: 0.2s; }
+.detailCard:nth-child(4) { animation-delay: 0.25s; }
+.detailCard:nth-child(5) { animation-delay: 0.3s; }
+.detailCard:nth-child(6) { animation-delay: 0.35s; }
+.detailCard:nth-child(7) { animation-delay: 0.4s; }
+.detailCard:nth-child(8) { animation-delay: 0.45s; }
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.cardIcon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.cardLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.cardValue {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.cardSubtext {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.appFooter {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 5;
+}
+
+/* ============================================
+   TABLET RESPONSIVE (1024px and below)
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .navContainer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .appTitle {
+        text-align: center;
+    }
+
+    .searchForm {
+        max-width: none;
+        flex: 1;
+    }
+
+    .mainContent {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .leftColumn {
+        gap: 25px;
+    }
+
+    .primaryCard {
+        padding: 40px 30px;
+    }
+
+    .primaryHeader {
+        gap: 20px;
+    }
+
+    .cityName {
+        font-size: 36px;
+    }
+
+    .mainTemperature {
+        font-size: 90px;
+    }
+
+    .weatherType {
+        font-size: 28px;
+    }
+
+    .temperatureSection {
+        gap: 30px;
+    }
+
+    .detailsSection {
+        grid-template-columns: repeat(2, 1fr);
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+    }
+
+    .sunTimesCard {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .sunDivider {
+        height: 50px;
+    }
+}
+
+/* ============================================
+   MOBILE RESPONSIVE (768px and below)
+   ============================================ */
+
+@media (max-width: 768px) {
+    .weatherApp {
+        padding: 15px;
+        min-height: 100vh;
+    }
+
+    .navHeader {
+        margin-bottom: 20px;
+    }
+
+    .navContainer {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .appTitle {
+        font-size: 24px;
+    }
+
+    .searchForm {
+        padding: 10px 16px;
+        max-width: none;
+    }
+
+    .searchInput {
+        font-size: 13px;
+    }
+
+    .mainContent {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .leftColumn {
+        gap: 20px;
+    }
+
+    .primaryCard {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+
+    .primaryHeader {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .cityName {
+        font-size: 32px;
+    }
+
+    .mainTemperature {
+        font-size: 72px;
+    }
+
+    .temperatureSection {
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .weatherType {
+        font-size: 24px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+
+    .feelsLike {
+        font-size: 14px;
+    }
+
+    .tempRangeBar {
+        gap: 15px;
+        padding-top: 20px;
+    }
+
+    .tempRangeItem {
+        min-width: 60px;
+    }
+
+    .tempLabel {
+        font-size: 10px;
+    }
+
+    .tempVal {
+        font-size: 18px;
+    }
+
+    .sunTimesCard {
+        padding: 24px;
+        gap: 15px;
+        flex-direction: row;
+    }
+
+    .sunTimeItem {
+        gap: 15px;
+    }
+
+    .sunIcon {
+        font-size: 40px;
+    }
+
+    .sunLabel {
+        font-size: 11px;
+    }
+
+    .sunTime {
+        font-size: 20px;
+    }
+
+    .sunDivider {
+        height: 45px;
+        width: 1px;
+    }
+
+    .detailsSection {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+    }
+
+    .detailCard {
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .cardValue {
+        font-size: 28px;
+    }
+
+    .cardLabel {
+        font-size: 11px;
+    }
+
+    .cardIcon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .appFooter {
+        font-size: 11px;
+        margin-top: 15px;
+        padding-top: 12px;
+    }
+}
+
+/* ============================================
+   SMALL MOBILE RESPONSIVE (480px and below)
+   ============================================ */
+
+@media (max-width: 480px) {
+    .weatherApp {
+        padding: 12px;
+    }
+
+    .navHeader {
+        margin-bottom: 15px;
+    }
+
+    .navContainer {
+        gap: 10px;
+    }
+
+    .appTitle {
+        font-size: 20px;
+    }
+
+    .searchForm {
+        padding: 8px 12px;
+        border-radius: 25px;
+    }
+
+    .searchInput {
+        font-size: 12px;
+    }
+
+    .searchBtn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .errorMsg {
+        font-size: 12px;
+        padding: 8px;
+        margin-top: 10px;
+    }
+
+    .mainContent {
+        gap: 15px;
+    }
+
+    .leftColumn {
+        gap: 15px;
+    }
+
+    .primaryCard {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .primaryHeader {
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .cityName {
+        font-size: 26px;
+    }
+
+    .countryInfo {
+        font-size: 12px;
+    }
+
+    .mainTemperature {
+        font-size: 56px;
+    }
+
+    .temperatureSection {
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-direction: column;
+    }
+
+    .weatherType {
+        font-size: 20px;
+    }
+
+    .description {
+        font-size: 14px;
+    }
+
+    .feelsLike {
+        font-size: 13px;
+    }
+
+    .tempRangeBar {
+        gap: 10px;
+        padding-top: 15px;
+    }
+
+    .tempRangeItem {
+        min-width: 50px;
+        gap: 4px;
+    }
+
+    .tempLabel {
+        font-size: 9px;
+        letter-spacing: 0.5px;
+    }
+
+    .tempVal {
+        font-size: 16px;
+    }
+
+    .sunTimesCard {
+        padding: 20px;
+        gap: 10px;
+        border-radius: 16px;
+    }
+
+    .sunTimeItem {
+        gap: 10px;
+        flex: 1;
+    }
+
+    .sunIcon {
+        font-size: 32px;
+    }
+
+    .sunLabel {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+    }
+
+    .sunTime {
+        font-size: 16px;
+    }
+
+    .sunDivider {
+        height: 40px;
+    }
+
+    .detailsSection {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .detailCard {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .cardValue {
+        font-size: 24px;
+    }
+
+    .cardLabel {
+        font-size: 10px;
+        letter-spacing: 0.5px;
+    }
+
+    .cardHeader {
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .cardIcon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .cardSubtext {
+        font-size: 11px;
+    }
+
+    .appFooter {
+        font-size: 10px;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+}
